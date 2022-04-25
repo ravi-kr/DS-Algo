@@ -1,0 +1,85 @@
+'''
+Linked Lists
+'''
+
+class Node:
+    def __init__(self, dataval = None):
+        self.dataval = dataval
+        self.nextval = None
+        
+class SLinkedList:
+    def __init__(self):
+        self.headval = None
+    
+    # Print the Linked List
+    def listprint(self):
+        printval = self.headval
+        while printval is not None:
+            print(printval.dataval)
+            printval = printval.nextval
+            
+    # Update the new nodes next val to existing node
+    def AtBeginning(self, newdata):
+        NewNode = Node(newdata)
+        NewNode.nextval = self.headval
+        self.headval = NewNode
+        
+    # Function to add new node
+    
+    def atEnd(self, newdata):
+        NewNode = Node(newdata)
+        if self.headval is None:
+            self.headval = NewNode
+            return
+        laste = self.headval
+        while(laste.nextval):
+            laste = laste.nextval
+        laste.nextval = NewNode
+        
+    # Function to add node
+    def InBetween(self, middle_node, newdata):
+        if middle_node is None:
+            print("The mentioned node is absent")
+            return
+        NewNode = Node(newdata)
+        NewNode.nextval = middle_node.nextval
+        middle_node.nextval = NewNode
+        
+    # Function to remove node
+    def RemoveNode(self, Removekey):
+        Headval = self.headval
+        if Headval is not None:
+            if Headval.dataval == Removekey:
+                self.headval = Headval.nextval
+                Headval = None
+                return
+        while Headval is not None:
+            if Headval.dataval == Removekey:
+                break
+            prev = Headval
+            Headval = Headval.nextval
+            
+        if Headval == None:
+            return
+        
+        prev.nextval = Headval.nextval
+        Headval = None
+        
+list1 = SLinkedList()
+list1.headval = Node("Mon")
+e2 = Node("Tue")
+e3 = Node("Wed")
+
+list1.headval.nextval = e2
+e2.nextval = e3
+#list1.listprint()
+
+list1.InBetween(list1.headval.nextval, "Fri")
+# list1.AtBeginning("Sun")
+
+list1.RemoveNode("Tue")
+list1.listprint()
+
+# list1.atEnd("Thu")
+
+# list1.listprint()
